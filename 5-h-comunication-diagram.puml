@@ -1,0 +1,12 @@
+@startuml comunicationDiagramUML
+agent Registro
+agent CatalogoProductos
+agent Venta
+agent lineasVenta
+
+Registro->CatalogoProductos: getEspecificacion(ArticuloID id)
+CatalogoProductos->>Registro: EspecificacionProducto espec
+Registro-->Venta: crearLineaVenta(EspecificacionProducto espec, int cant)
+Venta->>lineasVenta: añadir(new LineaVenta(espec, cant))
+
+@enduml

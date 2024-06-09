@@ -1,0 +1,24 @@
+@startuml stateDiagramUML
+
+[*]  --> Pedido_Iniciado 
+state c <<choice>> 
+state d <<choice>> 
+ 
+ 
+' Transiciones 
+Pedido_Iniciado --> Pedido_Colocado: ColocarPedido 
+Pedido_Colocado --> Pedido_Pagado: PagarPedido 
+Pedido_Pagado --> c  
+c --> Pedido_Validado: ValidarPedido 
+c --> Pedido_Enviado : PagoporAdelanto 
+Pedido_Validado --> d 
+d --> Producto_Obtenido: ObtenerProducto 
+ 
+Producto_Obtenido --> Manera_Envio :EnivarProducto 
+d --> Pedido_Realizado 
+Pedido_Pagado --> Pedido_Enviado: DarCervezaALosTransportistas 
+Manera_Envio --> Pedido_Enviado : EnviarUrgente | EnviarOrdinario 
+Pedido_Realizado --> [*]: AñadirClienteSatisfecho | EnviarRecibo 
+Pedido_Enviado --> Pedido_Realizado 
+
+@enduml
